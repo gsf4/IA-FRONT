@@ -1,0 +1,9 @@
+
+train: data/images/train
+val: data/images/train  # ou datasets/data/images/val se tiver separado
+
+nc: 1  # número de classes
+names: ["card"]  # nome da(s) classe(s)
+
+# Para YOLO com caixas rotacionadas (OBB)
+obb: true
