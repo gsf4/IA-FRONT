@@ -47,7 +47,7 @@ async def predict_image(file: UploadFile = File(...)):
         image = cv2.imdecode(np_img, cv2.IMREAD_COLOR)
 
         # Roda predição
-        results = model(image, conf=0.4)
+        results = model(image, conf=0.80)
 
         # Renderiza a imagem com as detecções
         rendered_img = results[0].plot()
