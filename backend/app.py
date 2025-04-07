@@ -10,7 +10,7 @@ import io
 app = FastAPI()
 
 # Carrega o modelo
-model = YOLO("../runs/obb/yolo_cards_obb4/weights/best.pt")  # Substitua pelo caminho do seu modelo
+model = YOLO("../runs/obb/yolo_cards_obb9/weights/best.pt")  # Substitua pelo caminho do seu modelo
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
@@ -47,7 +47,7 @@ async def predict_image(file: UploadFile = File(...)):
         image = cv2.imdecode(np_img, cv2.IMREAD_COLOR)
 
         # Roda predição
-        results = model(image, conf=0.9)
+        results = model(image, conf=0.4)
 
         # Renderiza a imagem com as detecções
         rendered_img = results[0].plot()
