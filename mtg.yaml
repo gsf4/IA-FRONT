@@ -1,9 +1,7 @@
-
 train: data/images/train
-val: data/images/train  # ou datasets/data/images/val se tiver separado
+val: data/images/test
 
-nc: 1  # n�mero de classes
-names: ["card"]  # nome da(s) classe(s)
+nc: 7  # número de classes
+names: ["W", "U", "B", "R", "G", "C", "M"]  # siglas usadas no script de normalização
 
-# Para YOLO com caixas rotacionadas (OBB)
-obb: true
+obb: true  # uso de caixas rotacionadas (Oriented Bounding Boxes)
