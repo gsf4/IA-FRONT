@@ -7,6 +7,9 @@ import tempfile
 from fastapi.responses import StreamingResponse
 import io
 
+model_path = "../runs/obb/yolo_cards_obb9/weights/best.pt"  # Substitua pelo caminho do seu modelo
+model_conf = 0.7  # Substitua pela confiança desejada
+
 COLOR_MAP = {
     0: ("White", (255, 255, 255)),
     1: ("Blue", (255, 0, 0)),
@@ -19,7 +22,7 @@ COLOR_MAP = {
 app = FastAPI()
 
 # Carrega o modelo
-model = YOLO("../runs/obb/yolo_cards_obb9/weights/best.pt")  # Substitua pelo caminho do seu modelo
+model = YOLO(model_path)  # Substitua pelo caminho do seu modelo
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
@@ -54,7 +57,7 @@ async def predict_image(file: UploadFile = File(...)):
         np_img = np.frombuffer(contents, np.uint8)
         image = cv2.imdecode(np_img, cv2.IMREAD_COLOR)
 
-        results = model(image, conf=0.80)
+        results = model(image, conf=model_conf)
         obbs = results[0].obb
         annotated_img = image.copy()
 
