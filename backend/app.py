@@ -7,17 +7,17 @@ import tempfile
 from fastapi.responses import StreamingResponse
 import io
 
-model_path = "../runs/obb/yolo_cards_obb9/weights/best.pt"  # Substitua pelo caminho do seu modelo
+model_path = "../runs/obb/train_3050_yolo11s_obb2/weights/best.pt"  # Substitua pelo caminho do seu modelo
 model_conf = 0.7  # Substitua pela confiança desejada
 
 COLOR_MAP = {
     0: ("White", (255, 255, 255)),
     1: ("Blue", (255, 0, 0)),
-    2: ("Black", (0, 0, 0)),
+    2: ("Black", (128, 0, 150)),
     3: ("Red", (0, 0, 255)),
     4: ("Green", (0, 255, 0)),
-    5: ("Colorless", (128, 128, 128)),
-    6: ("Multicolor", (255, 255, 0)),
+    5: ("Colorless", (100, 100, 100)),
+    6: ("Multicolor",  (0, 255, 255)),
 }
 app = FastAPI()
 
@@ -69,7 +69,7 @@ async def predict_image(file: UploadFile = File(...)):
             class_name, color = COLOR_MAP.get(class_id, ("Unknown", (0, 255, 255)))
 
             # Desenha o polígono rotacionado com a cor da classe
-            cv2.polylines(annotated_img, [pts], isClosed=True, color=color, thickness=3)
+            cv2.polylines(annotated_img, [pts], isClosed=True, color=color, thickness=20)
 
             # Pega um ponto da quina para colocar o texto
             x, y = pts[0][0]
@@ -83,7 +83,7 @@ async def predict_image(file: UploadFile = File(...)):
             cv2.rectangle(
                 annotated_img,
                 (text_x, text_y - text_height - baseline),
-                (text_x + text_width + 6, text_y + 4),
+                (text_x + text_width + 20, text_y + 4),
                 (0, 0, 0),  
                 thickness=cv2.FILLED
             )
@@ -94,9 +94,9 @@ async def predict_image(file: UploadFile = File(...)):
                 label,
                 (text_x + 3, text_y),
                 cv2.FONT_HERSHEY_SIMPLEX,
-                0.8,
-                (255,255,255),  # cor da classe
                 2,
+                (255,255,255),  # cor da classe
+                4,
                 cv2.LINE_AA
             )
 
