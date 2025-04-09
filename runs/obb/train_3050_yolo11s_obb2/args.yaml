@@ -5,7 +5,7 @@ data: mtg.yaml
 epochs: 100
 time: null
 patience: 5
-batch: -1
+batch: 1
 imgsz: 640
 save: true
 save_period: -1
