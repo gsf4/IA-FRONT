@@ -2,7 +2,7 @@ train: data/images/train
 val: data/images/test
 
 nc: 7  # n�mero de classes
-names: ["Branco (White)", "Azul (Blue)", "Preto (Black)", "Vermelho (Red)", "Verde (Green)", "Incolor", "Multicor"]  # nome da(s) classe(s)
+names: ["Branco", "Azul", "Preto", "Vermelho", "Verde", "Incolor", "Multicor"]  # nome da(s) classe(s)
 
 # Para YOLO com caixas rotacionadas (OBB)
 obb: true
